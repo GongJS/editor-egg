@@ -21,7 +21,7 @@ export default (appInfo: EggAppInfo) => {
     },
   };
 
-  exports.mongoose = {
+  config.mongoose = {
     client: {
       url: 'mongodb://1.116.156.44:27016/test',
       options: {},
@@ -31,7 +31,7 @@ export default (appInfo: EggAppInfo) => {
 
   // the return config will combines to EggAppConfig
   return {
-    ...config,
+    ...config as {},
     ...bizConfig,
   };
 };
