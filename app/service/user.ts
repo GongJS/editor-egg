@@ -35,7 +35,7 @@ export default class UserService extends Service {
       type: 'cellphone',
     };
     const newUser = await ctx.model.User.create(userCreatedData);
-    const token = app.jwt.sign({ username: newUser.username }, app.config.jwt.secret);
+    const token = app.jwt.sign({ username: newUser.username, _id: newUser._id }, app.config.jwt.secret);
     return token;
   }
 }
