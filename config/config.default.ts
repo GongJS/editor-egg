@@ -15,6 +15,7 @@ export default (appInfo: EggAppInfo) => {
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
+    H5BaseURL: 'http://localhost:7001/api/pages',
   };
 
   config.security = {

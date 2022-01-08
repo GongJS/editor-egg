@@ -16,6 +16,8 @@ export interface WorkProps {
   copiedCount: number;
   status?: 0 | 1 | 2;
   user: ObjectId;
+  latestPublishAt?: Date;
+
 }
 
 module.exports = (app: Application) => {
@@ -35,6 +37,8 @@ module.exports = (app: Application) => {
     copiedCount: { type: Number, default: 0 },
     status: { type: Number, default: 1 },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
+    latestPublishAt: { type: Date },
+
   }, { timestamps: true });
   WorkSchema.plugin(AutoIncrement, { inc_field: 'id', id: 'works_id_counter' });
   return mongoose.model<WorkProps>('Work', WorkSchema);
