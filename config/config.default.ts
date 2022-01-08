@@ -55,6 +55,10 @@ export default (appInfo: EggAppInfo) => {
       endpoint: 'oss-cn-shanghai.aliyuncs.com',
     },
   };
+  config.multipart = {
+    whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
+    fileSize: '1mb',
+  };
   // the return config will combines to EggAppConfig
   return {
     ...config as {},
