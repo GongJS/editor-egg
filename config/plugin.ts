@@ -13,6 +13,10 @@ const plugin: EggPlugin = {
     enable: true,
     package: 'egg-bcrypt',
   },
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
+  },
 };
 
 export default plugin;

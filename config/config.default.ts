@@ -32,6 +32,10 @@ export default (appInfo: EggAppInfo) => {
   config.bcrypt = {
     saltRounds: 10,
   };
+
+  config.jwt = {
+    secret: '1234567890',
+  };
   // the return config will combines to EggAppConfig
   return {
     ...config as {},

@@ -45,7 +45,7 @@ export default class UserController extends Controller {
     return errors;
   }
   async loginByEmail() {
-    const { ctx, service } = this;
+    const { ctx, service, app } = this;
     // 检查用户的输入
     const error = this.validateUserInput();
     if (error) {
@@ -63,7 +63,8 @@ export default class UserController extends Controller {
     if (!verifyPwd) {
       return ctx.helper.error({ ctx, errorType: 'loginCheckFailInfo' });
     }
-    ctx.helper.success({ ctx, res: user, msg: '登录成功' });
+    const token = app.jwt.sign({ username: user.username }, app.config.jwt.secret, { expiresIn: 60 * 60 });
+    ctx.helper.success({ ctx, res: { token }, msg: '登录成功' });
   }
   async show() {
     const { ctx, service } = this;
