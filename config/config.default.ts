@@ -48,6 +48,14 @@ export default (appInfo: EggAppInfo) => {
       db: 0,
     },
   };
+  config.oss = {
+    client: {
+      accessKeyId: process.env.ALC_ACCESS_ID || '',
+      accessKeySecret: process.env.ALC_SECRET_KEY || '',
+      bucket: 'gjs-lego',
+      region: 'oss-cn-shanghai',
+    },
+  };
   // the return config will combines to EggAppConfig
   return {
     ...config as {},
