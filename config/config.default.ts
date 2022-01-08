@@ -1,7 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 import * as dovenv from 'dotenv';
 dovenv.config();
-
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
@@ -50,10 +49,10 @@ export default (appInfo: EggAppInfo) => {
   };
   config.oss = {
     client: {
-      accessKeyId: process.env.ALC_ACCESS_ID || '',
-      accessKeySecret: process.env.ALC_SECRET_KEY || '',
+      accessKeyId: process.env.ALC_ACCESS_ID,
+      accessKeySecret: process.env.ALC_ACCESS_SECRET,
       bucket: 'gjs-lego',
-      region: 'oss-cn-shanghai',
+      endpoint: 'oss-cn-shanghai.aliyuncs.com',
     },
   };
   // the return config will combines to EggAppConfig
