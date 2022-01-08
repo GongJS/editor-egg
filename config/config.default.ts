@@ -1,4 +1,6 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
+import * as dovenv from 'dotenv';
+dovenv.config();
 
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
@@ -23,7 +25,7 @@ export default (appInfo: EggAppInfo) => {
 
   config.mongoose = {
     client: {
-      url: 'mongodb://1.116.156.44:27016/test',
+      url: process.env.MONGOOSE_URL!,
       options: {},
       // mongoose global plugins, expected a function or an array of function and options
     },
@@ -34,13 +36,13 @@ export default (appInfo: EggAppInfo) => {
   };
 
   config.jwt = {
-    secret: '1234567890',
+    secret: process.env.JWT_SECRET,
   };
 
   config.redis = {
     client: {
-      port: 6378,
-      host: '1.116.156.44',
+      port: parseInt(process.env.REDIS_PORT!, 10),
+      host: process.env.REDIS_HOST,
       password: '',
       db: 0,
     },
