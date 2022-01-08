@@ -36,6 +36,15 @@ export default (appInfo: EggAppInfo) => {
   config.jwt = {
     secret: '1234567890',
   };
+
+  config.redis = {
+    client: {
+      port: 6378,
+      host: '1.116.156.44',
+      password: '',
+      db: 0,
+    },
+  };
   // the return config will combines to EggAppConfig
   return {
     ...config as {},
