@@ -18,4 +18,5 @@ export default (app: Application) => {
   router.post('/api/works/publish-template/:id', jwtMiddleware, controller.work.publishTemplate);
 
   router.post('/api/utils/upload', controller.utils.uploadToOSS);
+  router.post('/api/utils/upload-img', controller.utils.uploadMutipleFiles);
 };
