@@ -18,6 +18,10 @@ export const userErrorMessages = {
     errno: 101003,
     message: '该用户不存在或者密码错误',
   },
+  loginValidateFail: {
+    errno: 101004,
+    message: '登录校验失败',
+  },
 };
 
 export default class UserController extends Controller {
@@ -68,8 +72,7 @@ export default class UserController extends Controller {
   }
   async show() {
     const { ctx, service } = this;
-    // /users/:id
-    const userData = await service.user.findById(ctx.params.id);
-    ctx.helper.success({ ctx, res: userData });
+    const userData = await service.user.findByUsername(ctx.state.user.username);
+    ctx.helper.success({ ctx, res: userData?.toJSON() });
   }
 }
