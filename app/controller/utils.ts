@@ -5,6 +5,30 @@ import { join, extname } from 'path';
 import { FileStream } from '../../typings/app';
 
 export default class UtilsController extends Controller {
+  splitIdAndUuid(str = '') {
+    const result = { id: '', uuid: '' };
+    if (!str) return result;
+    const firstDashIndex = str.indexOf('-');
+    if (firstDashIndex < 0) return result;
+    result.id = str.slice(0, firstDashIndex);
+    result.uuid = str.slice(firstDashIndex + 1);
+    return result;
+  }
+  async renderH5Page() {
+    // id-uuid split('-')
+    // uuid = aa-bb-cc
+    const { ctx } = this;
+    const { idAndUuid } = ctx.params;
+    const query = this.splitIdAndUuid(idAndUuid);
+    try {
+      const pageData = await this.service.utils.renderToPageData(query);
+      console.log(9999, pageData)
+      await ctx.render('page.nj', pageData);
+    } catch (e) {
+      console.log(5555, e)
+      ctx.helper.error({ ctx, errorType: 'h5WorkNotExistError' });
+    }
+  }
   // 单文件
   async uploadToOSS() {
     const { ctx, app } = this;

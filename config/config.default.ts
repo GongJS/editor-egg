@@ -61,6 +61,9 @@ export default (appInfo: EggAppInfo) => {
     whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
     fileSize: '1mb',
   };
+  config.view = {
+    defaultViewEngine: 'nunjucks'
+  }
   // the return config will combines to EggAppConfig
   return {
     ...config as {},
