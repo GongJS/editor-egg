@@ -23,6 +23,7 @@ export default class UserService extends Service {
     }
     const { title, desc, content } = work;
     const { components = [], props = {} } = content;
+    this.propsToStyle(components);
     const reactEle = React.createElement('div', {
       className: 'final-page',
     }, components.map((component, index) => {
