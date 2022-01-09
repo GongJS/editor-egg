@@ -10,9 +10,9 @@ const publicPath = path.resolve(__dirname, '../app/public');
 
 // 新建一个实例
 const client = new OSS({
-  accessKeyId: process.env.ALC_ACCESS_ID || '',
-  accessKeySecret: process.env.ALC_ACCESS_SECRET || '',
-  bucket: 'lego-backend',
+  accessKeyId: process.env.ALC_ACCESS_ID,
+  accessKeySecret: process.env.ALC_ACCESS_SECRET,
+  bucket: 'gjs-lego',
   endpoint: 'oss-cn-shanghai.aliyuncs.com',
 });
 
