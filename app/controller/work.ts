@@ -56,7 +56,7 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res });
   }
 
-  @checkPermission('Work', 'workNoPermissonFail')
+  @checkPermission('Work', 'workNoPermissionFail')
   async update() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -65,7 +65,7 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res });
   }
 
-  @checkPermission('Work', 'workNoPermissonFail')
+  @checkPermission('Work', 'workNoPermissionFail')
   async delete() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -73,7 +73,7 @@ export default class WorkController extends Controller {
     ctx.helper.success({ ctx, res });
   }
 
-  @checkPermission('Work', 'workNoPermissonFail')
+  @checkPermission('Work', 'workNoPermissionFail')
   async publish(isTemplate: boolean) {
     const { ctx } = this;
     const url = await this.service.work.publish(ctx.params.id, isTemplate);
@@ -86,5 +86,32 @@ export default class WorkController extends Controller {
 
   async publishTemplate() {
     await this.publish(true);
+  }
+
+  async copyWork() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    try {
+      const res = await ctx.service.work.copyWork(parseInt(id));
+      ctx.helper.success({ ctx, res });
+    } catch (e) {
+      return ctx.helper.error({ ctx, errorType: 'workNoPublicFail' });
+    }
+  }
+  @checkPermission('Work', 'workNoPermissionFail')
+  async myWork() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const res = await this.ctx.model.Work.findOne({ id }).lean();
+    ctx.helper.success({ ctx, res });
+  }
+  async template() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const res = await this.ctx.model.Work.findOne({ id }).lean();
+    if (!res.isPublic || !res.isTemplate) {
+      return ctx.helper.error({ ctx, errorType: 'workNoPublicFail' });
+    }
+    ctx.helper.success({ ctx, res });
   }
 }
