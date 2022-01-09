@@ -20,7 +20,8 @@
     "autod": "autod",
     "lint": "eslint . --ext .ts",
     "clean": "ets clean",
-    "build:template": "npx webpack --config webpack/webpack.config.js"
+    "build:template": "npx webpack --config webpack/webpack.config.js",
+    "upload": "node webpack/uploadToOSS.js"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
