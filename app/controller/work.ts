@@ -129,6 +129,7 @@ export default class WorkController extends Controller {
       ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
     }
   }
+
   async getWorkChannel() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -136,6 +137,28 @@ export default class WorkController extends Controller {
     if (certianWork) {
       const { channels } = certianWork;
       ctx.helper.success({ ctx, res: { count: channels && channels.length || 0, list: channels || [] } });
+    } else {
+      ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
+    }
+  }
+
+  async updateChannelName() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const { name } = ctx.request.body;
+    const res = await ctx.model.Work.findOneAndUpdate({ 'channels.id': id }, { $set: { 'channels.$.name': name } });
+    if (res) {
+      ctx.helper.success({ ctx, res: { name } });
+    } else {
+      ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
+    }
+  }
+  async deleteChannel() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const work = await ctx.model.Work.findOneAndUpdate({ 'channels.id': id }, { $pull: { channels: { id } } }, { new: true });
+    if (work) {
+      ctx.helper.success({ ctx, res: work });
     } else {
       ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
     }
