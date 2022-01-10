@@ -38,7 +38,7 @@ export default (appInfo: EggAppInfo) => {
   config.jwt = {
     enable: true,
     secret: process.env.JWT_SECRET,
-    match: [ '/api/users/getUserInfo', '/api/works', '/api/utils/upload-img' ],
+    match: [ '/api/users/getUserInfo', '/api/works', '/api/utils/upload-img', '/api/channel' ],
   };
 
   config.redis = {
@@ -62,8 +62,8 @@ export default (appInfo: EggAppInfo) => {
     fileSize: '1mb',
   };
   config.view = {
-    defaultViewEngine: 'nunjucks'
-  }
+    defaultViewEngine: 'nunjucks',
+  };
   // the return config will combines to EggAppConfig
   return {
     ...config as {},
