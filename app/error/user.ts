@@ -11,11 +11,11 @@ export const userErrorMessages = {
   // 用户不存在或者密码错误
   loginCheckFailInfo: {
     errno: 101003,
-    message: '该用户不存在或者密码错误'
+    message: '该用户不存在或者密码错误',
   },
   loginValidateFail: {
     errno: 101004,
-    message: '登录校验失败'
+    message: '登录校验失败',
   },
   // 发送短信验证码过于频繁
   sendVeriCodeFrequentlyFailInfo: {
@@ -32,9 +32,4 @@ export const userErrorMessages = {
     errno: 101007,
     message: '验证码发送失败',
   },
-  // gitee 授权出错
-  giteeOauthError: {
-    errno: 101008,
-    message: 'gitee 授权出错',
-  },
-}
+};

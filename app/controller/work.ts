@@ -7,6 +7,11 @@ const workCreateRules = {
   title: 'string',
 };
 
+const channelCreateRules = {
+  name: 'string',
+  workId: 'number',
+};
+
 export interface IndexCondition {
   pageIndex?: number;
   pageSize?: number;
@@ -18,6 +23,7 @@ export interface IndexCondition {
 
 export default class WorkController extends Controller {
   @inputValidate(workCreateRules, 'workValidateFail')
+  @checkPermission('Work', 'workNoPermissionFail')
   async createWork() {
     const { ctx, service } = this;
     const workData = await service.work.createEmptyWork(ctx.request.body);
@@ -28,14 +34,14 @@ export default class WorkController extends Controller {
     const { ctx } = this;
     const userId = ctx.state.user._id;
     const { pageIndex, pageSize, title } = ctx.query;
-    const findConditon = {
+    const findCondition = {
       user: userId,
       ...(title && { title: { $regex: title, $options: 'i' } }),
     };
     const listCondition: IndexCondition = {
       select: 'id author copiedCount coverImg desc title user isHot createdAt',
       populate: { path: 'user', select: 'username nickName picture' },
-      find: findConditon,
+      find: findCondition,
       ...(pageIndex && { pageIndex: parseInt(pageIndex) }),
       ...(pageSize && { pageSize: parseInt(pageSize) }),
     };
@@ -99,6 +105,7 @@ export default class WorkController extends Controller {
       return ctx.helper.error({ ctx, errorType: 'workNoPublicFail' });
     }
   }
+
   @checkPermission('Work', 'workNoPermissionFail')
   async myWork() {
     const { ctx } = this;
@@ -106,6 +113,7 @@ export default class WorkController extends Controller {
     const res = await this.ctx.model.Work.findOne({ id }).lean();
     ctx.helper.success({ ctx, res });
   }
+
   async template() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -115,6 +123,9 @@ export default class WorkController extends Controller {
     }
     ctx.helper.success({ ctx, res });
   }
+
+  @inputValidate(channelCreateRules, 'channelValidateFail')
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissionFail', { value: { type: 'body', valueKey: 'workId' } })
   async createChannel() {
     const { ctx } = this;
     const { name, workId } = ctx.request.body;
@@ -130,18 +141,20 @@ export default class WorkController extends Controller {
     }
   }
 
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissionFail')
   async getWorkChannel() {
     const { ctx } = this;
     const { id } = ctx.params;
-    const certianWork = await ctx.model.Work.findOne({ id });
-    if (certianWork) {
-      const { channels } = certianWork;
+    const certainWork = await ctx.model.Work.findOne({ id });
+    if (certainWork) {
+      const { channels } = certainWork;
       ctx.helper.success({ ctx, res: { count: channels && channels.length || 0, list: channels || [] } });
     } else {
       ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
     }
   }
 
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissionFail', { key: 'channels.id' })
   async updateChannelName() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -153,6 +166,8 @@ export default class WorkController extends Controller {
       ctx.helper.error({ ctx, errorType: 'channelOperateFail' });
     }
   }
+
+  @checkPermission({ casl: 'Channel', mongoose: 'Work' }, 'workNoPermissionFail', { key: 'channels.id' })
   async deleteChannel() {
     const { ctx } = this;
     const { id } = ctx.params;
