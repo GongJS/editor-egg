@@ -15,12 +15,14 @@ export default (appInfo: EggAppInfo) => {
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     H5BaseURL: 'http://localhost:7001/api/pages',
+    jwtExpires: '1h',
   };
 
   config.security = {
     csrf: {
       enable: false,
     },
+    domainWhiteList: [ 'http://localhost:8080' ],
   };
 
   config.mongoose = {

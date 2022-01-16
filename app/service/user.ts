@@ -24,7 +24,7 @@ export default class UserService extends Service {
     // 检查 user 记录是否存在
     if (user) {
       // generate token
-      const token = app.jwt.sign({ username: user.username, _id: user._id }, app.config.jwt.secret);
+      const token = app.jwt.sign({ username: user.username, _id: user._id }, app.config.jwt.secret, { expiresIn: app.config.jwtExpires });
       return token;
     }
     // 新建一个用户
@@ -35,7 +35,7 @@ export default class UserService extends Service {
       type: 'cellphone',
     };
     const newUser = await ctx.model.User.create(userCreatedData);
-    const token = app.jwt.sign({ username: newUser.username, _id: newUser._id }, app.config.jwt.secret);
+    const token = app.jwt.sign({ username: newUser.username, _id: newUser._id }, app.config.jwt.secret, { expiresIn: app.config.jwtExpires });
     return token;
   }
 }

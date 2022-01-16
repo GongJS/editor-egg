@@ -19,3 +19,5 @@ test/**/*.map
 config/**/*.map
 
 .env
+
+.docker-volumes/
