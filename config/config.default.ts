@@ -22,14 +22,19 @@ export default (appInfo: EggAppInfo) => {
     csrf: {
       enable: false,
     },
-    domainWhiteList: [ 'http://localhost:8080' ],
+    xframe: {
+      enable: false,
+    },
+    domainWhiteList: [ 'http://localhost:3000' ],
   };
 
   config.mongoose = {
     client: {
       url: process.env.MONGOOSE_URL!,
-      options: {},
-      // mongoose global plugins, expected a function or an array of function and options
+      options: {
+        user: process.env.MONGO_DB_USERNAME,
+        pass: process.env.MONGO_DB_PASSWORD,
+      },
     },
   };
 
@@ -47,7 +52,7 @@ export default (appInfo: EggAppInfo) => {
     client: {
       port: parseInt(process.env.REDIS_PORT!, 10),
       host: process.env.REDIS_HOST,
-      password: '',
+      password: process.env.REDIS_PASSWORD,
       db: 0,
     },
   };

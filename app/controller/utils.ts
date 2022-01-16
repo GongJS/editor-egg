@@ -22,10 +22,8 @@ export default class UtilsController extends Controller {
     const query = this.splitIdAndUuid(idAndUuid);
     try {
       const pageData = await this.service.utils.renderToPageData(query);
-      console.log(9999, pageData)
       await ctx.render('page.nj', pageData);
     } catch (e) {
-      console.log(5555, e)
       ctx.helper.error({ ctx, errorType: 'h5WorkNotExistError' });
     }
   }

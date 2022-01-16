@@ -40,7 +40,8 @@ export default class WorkService extends Service {
       .sort(customSort)
       .lean();
     const count = await this.ctx.model.Work.find(find).count();
-    return { count, list: res, pageSize, pageIndex };
+    const pageTotal = Math.ceil(count / pageSize);
+    return { count, list: res, pageSize, pageIndex, pageTotal };
   }
 
   async publish(id: number, isTemplate = false) {
@@ -53,7 +54,7 @@ export default class WorkService extends Service {
     };
     const res = await ctx.model.Work.findOneAndUpdate({ id }, payload, { new: true });
     const { uuid } = res;
-    return `${H5BaseURL}/p/${id}-${uuid}`;
+    return `${H5BaseURL}/${id}-${uuid}`;
   }
   async copyWork(wid: number) {
     const { ctx } = this;

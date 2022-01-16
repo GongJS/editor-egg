@@ -8,8 +8,8 @@
     "declarations": true
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-lego-backend",
-    "stop": "egg-scripts stop --title=egg-server-lego-backend",
+    "start": "egg-scripts start --daemon --title=lego-backend",
+    "stop": "egg-scripts stop --title=lego-backend",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test-local": "egg-bin test",
@@ -59,7 +59,7 @@
     "eslint-config-egg": "^8.0.0",
     "filemanager-webpack-plugin": "^6.1.7",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.4.6",
+    "mini-css-extract-plugin": "2.4.5",
     "tslib": "^1.9.0",
     "typescript": "^3.0.0",
     "webpack": "^5.65.0",
