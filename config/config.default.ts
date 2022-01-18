@@ -65,7 +65,7 @@ export default (appInfo: EggAppInfo) => {
     },
   };
   config.multipart = {
-    whitelist: [ '.png', '.jpg', '.gif', '.webp' ],
+    whitelist: [ '.png', '.jpg', '.gif', '.webp', '.jpeg' ],
     fileSize: '1mb',
   };
   config.view = {

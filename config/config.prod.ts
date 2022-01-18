@@ -17,7 +17,7 @@ export default () => {
     },
   };
   config.security = {
-    domainWhiteList: [ 'http://1.116.156.44' ],
+    domainWhiteList: [ 'http://1.116.156.44:5000', 'redell.top', 'localhost:3000' ],
   };
   config.H5BaseURL = 'http://1.116.156.44/api/pages';
   config.jwtExpires = '2 days';
