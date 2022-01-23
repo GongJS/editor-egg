@@ -16,8 +16,8 @@ jobs:
       - name: 'create env file'
         run: |
           touch .env
-          echo ALC_ACCESS_KEY=${{ secrets.ALC_ACCESS_ID }} >> .env
-          echo ALC_SECRET_KEY=${{ secrets.ALC_ACCESS_SECRET }} >> .env
+          echo ALC_ACCESS_ID=${{ secrets.ALC_ACCESS_ID }} >> .env
+          echo ALC_ACCESS_SECRET=${{ secrets.ALC_ACCESS_SECRET }} >> .env
           echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
           echo REDIS_PORT=${{ secrets.REDIS_PORT }} >> .env
           echo REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} >> .env
