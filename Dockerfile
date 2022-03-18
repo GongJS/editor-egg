@@ -8,4 +8,4 @@ RUN npm run tsc
 RUN npm run build:template:prod
 RUN npm run upload
 EXPOSE 7001
-CMD npx egg-scripts start --title=lego-backend
+CMD /sbin/ip route|awk '/default/ { print $3,"\tdocker-host" }' >> /etc/hosts && npx egg-scripts start --title=lego-backend
