@@ -3,7 +3,7 @@ import { EggAppConfig, PowerPartial } from 'egg';
 export default () => {
   const config: PowerPartial<EggAppConfig> = {};
   config.mongoose = {
-    url: 'mongodb://lego-mongo:27017/lego',
+    url: 'mongodb://docker-host:27017/editor',
     options: {
       user: process.env.MONGO_INITDB_ROOT_USERNAME,
       pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
@@ -12,14 +12,11 @@ export default () => {
   config.redis = {
     client: {
       port: 6379,
-      host: 'lego-redis',
+      host: 'docker-host',
       password: process.env.REDIS_PASSWORD,
     },
   };
-  config.security = {
-    domainWhiteList: [ 'http://1.116.156.44:5000', 'redell.top', 'localhost:3000' ],
-  };
-  config.H5BaseURL = 'http://1.116.156.44/api/pages';
+  config.H5BaseURL = 'https://editor-server.ooaaoo.top/api/pages';
   config.jwtExpires = '2 days';
   return config;
 };
