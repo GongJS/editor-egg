@@ -18,16 +18,6 @@ export default (appInfo: EggAppInfo) => {
     jwtExpires: '1h',
   };
 
-  config.security = {
-    csrf: {
-      enable: false,
-    },
-    xframe: {
-      enable: false,
-    },
-    domainWhiteList: [ 'http://localhost:3000' ],
-  };
-
   config.mongoose = {
     client: {
       url: process.env.MONGOOSE_URL!,
@@ -71,19 +61,21 @@ export default (appInfo: EggAppInfo) => {
   config.view = {
     defaultViewEngine: 'nunjucks',
   };
-  config.cors = {
-    origin: ({ req }) => {
-      const { origin } = req.headers;
-      const whiteList = [
-        'http://editor.ooaaoo.top',
-        'https://editor.ooaaoo.top',
-      ];
-      if (whiteList.includes(origin)) {
-        return origin;
-      }
+  config.security = {
+    csrf: {
+      enable: false,
     },
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
-  }
+    xframe: {
+      enable: false,
+    },
+    domainWhiteList: [
+      'http://editor.ooaaoo.top',
+      'https://editor.ooaaoo.top',
+    ],
+  };
+  config.cors = {
+    credentials: true,
+  };
   // the return config will combines to EggAppConfig
   return {
     ...config as {},
