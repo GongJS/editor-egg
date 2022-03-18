@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   editor-serve:
-    image: registry.cn-hangzhou.aliyuncs.com/redell/editor:{{tag}}
+    image: registry.cn-hangzhou.aliyuncs.com/redell/editor-server:{{tag}}
     container_name: editor-serve
     ports:
      - 7001:7001
